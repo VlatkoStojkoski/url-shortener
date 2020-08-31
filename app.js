@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const app = express();
 
-require('./passport')(passport);
+require('./auth/passport')(passport);
 
 mongoose
 	.connect(process.env.MONGO_URI, {
@@ -44,8 +44,9 @@ app.use((req, res, next) => {
 });
 
 app.use('/', require('./routes/index'));
-app.use('/users', require('./routes/users'));
-app.use('/urls', require('./routes/urls'));
+app.use('/shorturls/users', require('./routes/users'));
+app.use('/shorturls/urls', require('./routes/urls'));
+app.use('/shorturls', require('./routes/shorturls'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, console.log(`Listening on port ${PORT}`));

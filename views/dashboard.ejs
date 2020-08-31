@@ -1,6 +1,6 @@
 <div class="mt-5"></div>
 <%- include ("partials/message.ejs") -%>
-<form action="/urls" method="POST" class="mt-2">
+<form action="/shorturls/urls" method="POST" class="mt-2">
   <div class="row">
     <div class="form-group col-md-6 col-sm-12">
       <label for="longUrl"><strong>Long URL:</strong></label>
@@ -8,9 +8,9 @@
         value="<%= typeof longUrl != 'undefined' ? longUrl : '' %>" required>
     </div>
     <div class="form-group col-md-6 col-sm-12">
-      <label for="shortUrl"><strong>Short URL:</strong></label>
+      <label for="shortUrl"><strong>Short ID:</strong></label>
       <div class="form-row">
-        <p class="col-auto pt-2">https://vlatko.mk/l/</p>
+        <p class="col-auto pt-2">https://domain.com/</p>
         <input type="text" class="form-control col pl-2" id="shortUrl" name="shortUrl" placeholder="custom-url">
       </div>
     </div>
@@ -49,4 +49,4 @@
   </tbody>
 </table>
 <br>
-<a href="/users/logout" type="submit" class="btn btn-warning">Logout</a>
+<a href="/shorturls/users/logout" type="submit" class="btn btn-warning">Logout</a>

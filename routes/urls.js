@@ -1,6 +1,6 @@
 const express = require('express');
 const shortid = require('shortid');
-const { ensureAuthenticated } = require('../auth');
+const { ensureAuthenticated } = require('../auth/auth');
 
 const router = express.Router();
 
@@ -9,12 +9,10 @@ const Url = require('../models/Url');
 router.post('/', ensureAuthenticated, (req, res) => {
 	let { longUrl, shortUrl } = req.body;
 
-	let errors = [];
-
 	Url.findOne({ shortUrl }).then((url) => {
 		if (url) {
-			errors.push({ msg: 'Short ID already registered' });
-			res.render('register', { errors, longUrl });
+			req.flash('error_msg', 'Short ID already registered');
+			res.redirect('/shorturls/dashboard');
 		} else {
 			if (shortUrl == '') {
 				shortUrl = shortid.generate();
@@ -26,7 +24,7 @@ router.post('/', ensureAuthenticated, (req, res) => {
 				.save()
 				.then((url) => {
 					req.flash('success_msg', 'Registered short URL successfully');
-					res.redirect('/dashboard');
+					res.redirect('/shorturls/dashboard');
 				})
 				.catch((err) => console.log(err));
 		}
